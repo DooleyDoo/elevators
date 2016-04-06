@@ -30,7 +30,8 @@ public class Elevator {
 
    public ElevatorStats getStats( )   {  return stats;  }
 
-   public int getCurrentFloor( )      { return currentFloor;  }
+   public int getCurrentFloor( )      {  return currentFloor;  }
+   public boolean isOccupied( )       {  return (currentTrip != null);  }
   
 
    public boolean needsMaintenance( ) {  return ! online;  }
@@ -46,6 +47,7 @@ public class Elevator {
       return online && (currentTrip == null);
    }
 
+   /** @return True if elevator can service this request.  */
    public boolean checkTripRequest( TripRequest req ) {
       if (! isAvailable()) {
          return false;
