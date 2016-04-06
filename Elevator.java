@@ -2,6 +2,8 @@ package foo;
 
 //NOTE: Let's simplify.  Elevator can only do one trip request a time
 //      If it is making a trip then it is occupied
+//      Ack, that doesn't work. Point 7) implies more than one
+//        occupant--ignore that constraint for now
 public class Elevator {
    private Building building;
    private ElevatorReportble report;
@@ -27,8 +29,10 @@ public class Elevator {
 
 
    public ElevatorStats getStats( )   {  return stats;  }
+
+   public int getCurrentFloor( )      { return currentFloor;  }
   
-   public boolean isAvailable( )      { return online;  }
+
    public boolean needsMaintenance( ) {  return ! online;  }
 
    public void maintainElevator( )  {
@@ -37,8 +41,13 @@ public class Elevator {
    }
 
 
+   public boolean isAvailable( ) {
+      //FIXME: assumes only one trip request at a time
+      return online && (currentTrip == null);
+   }
+
    public boolean checkTripRequest( TripRequest req ) {
-      if (! online) {
+      if (! isAvailable()) {
          return false;
       }
 
@@ -56,7 +65,7 @@ public class Elevator {
    //Called periodially to move elevator from floor to floor
    public void run( ) {
       //move elevator
-      //call report.movingFloorToFloor() for the move 
+      //call report.movOneFloor() for the move 
    }
 
 
@@ -71,6 +80,13 @@ public class Elevator {
    private void maintenanceShutdown( ) {
       online = false;
       report.shuttingDownForMaintenance(this);
+   }
+
+   private void moveOneFloor( boolean up ) {
+      int add = (up) ? 1 : -1;
+      report.movingFloorToFloor(this, currentFloor, currentFloor + add);
+      stats.addToFloorsPassed(1);
+      currentFloor += add; 
    }
 }
 
