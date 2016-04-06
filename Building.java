@@ -17,6 +17,10 @@ public class Building {
       
       //FIXME: Maybe we should throw an exception for fire, terrorists...
    } 
+
+   protected int getInitialElevatorFloor( ) {
+      return minFloor;
+   }
 }
 
 
