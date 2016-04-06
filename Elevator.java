@@ -90,6 +90,14 @@ public class Elevator {
       stats.addToFloorsPassed(1);
       currentFloor += add; 
    }
+
+   private void endTrip( ) {
+      stats.incTrips();
+        //FIXME: pull out literal
+      if (stats.getNumTripsSinceMaintenance() >= 100) {
+         maintenanceShutdown();
+      }
+   }
 }
 
 
