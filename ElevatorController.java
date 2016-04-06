@@ -12,6 +12,9 @@ protected class ElevatorController {
    public void tripRequest( TripRequest req )
           throws NoAvailableElevatorException {
       for ( Elevator e : elevators ) {
+         if (e.isAvailable() == false) {
+            continue;
+         }
          //FIXME: poll elevators looking for a suitable one
       }
    }

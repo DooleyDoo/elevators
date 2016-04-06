@@ -27,7 +27,7 @@ public class ElevatorSimulation implements ElevatorReportable {
 
 
    /** @return An elevator that needs to be maintained.  Null if none.  */
-   protected Elevator getElevatorForMaintenance( ) {
+   protected Elevator findElevatorForMaintenance( ) {
       for ( Elevator e : elevators ) {
          if (e.needsMaintenance()) {
             return e;

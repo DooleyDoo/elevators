@@ -11,6 +11,8 @@ public class TripRequest {
       endFloor = end;
    }
 
+   public int getStartFloor( )  { return startFloor;  }
+   public int getEndFloor( )    { return endFloor;  }
 }
 
 
