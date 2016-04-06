@@ -13,16 +13,16 @@ public class ElevatorSimulation implements ElevatorReportable {
       
       elevators = new ArrayList<Elevators>();
       for (int i=0; i < numElevs; i++) {
-         elevators.add(new Elevator(building));
+         elevators.add(new Elevator(building), this);
       }
 
       controller = new ElevatorController(elevators);
    }
 
 
-   //throw something??
-   public Elevator requestElevator( int floor )  {
-      controller.requestElevator(floor);
+   public void requestElevator( TripRequest req )
+          throws NoAvaialableElevatorException  {
+      controller.tripRequest(req);
    }
 
 
@@ -35,6 +35,8 @@ public class ElevatorSimulation implements ElevatorReportable {
       }
       return null;
    }
+
+   //FIXME: implement ElevatorReportable methods
 }
 
 
